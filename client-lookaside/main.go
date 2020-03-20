@@ -7,13 +7,14 @@ import (
 	"os"
 	"time"
 
-	pb "go-grpc-loadbalancing/protos/helloworld"
+	pb "go-grpc-loadbalancing/client-lookaside/protos/helloworld"
 
 	"google.golang.org/grpc"
+	_ "google.golang.org/grpc/balancer/grpclb"
 )
 
 const (
-	address     = "grpc-server:8000"
+	address     = "dns:///grpc-server-balancer:9000"
 	defaultName = "world"
 )
 

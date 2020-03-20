@@ -1,18 +1,26 @@
-# go-grpc-loadbalancing
+# Go Grpc Loadbalancing
 
-## Build images
-docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
-docker build -t go-grpc-client .
+__This repository is a part of https://github.com/wicharypawel/net-core-grpc-load-balance repository.__
 
-## Create containers
-docker network create mynet
-docker run -d --network=mynet --name=grpc-server grpc-server 
-docker run -d --network=mynet --name=grpc-client go-grpc-client
+This repository defines gRPC greeter clients written in GO. Clients are:
+- simple greeter,
+- round-robin greeter,
+- lookaside greeter,
 
-## Verify
-docker logs grpc-client
+## Docker commands used to build clients 
 
-## Cleanup
-docker rm grpc-client -f
-docker rm grpc-server -f
-docker network rm mynet
+__NOTE: Helloworld.proto is slightly different than hello world example by gRPC__
+
+```
+docker build -t go-grpc-client-greeter -f ./client-greeter/Dockerfile ./client-greeter
+docker build -t go-grpc-client-round-robin -f ./client-round-robin/Dockerfile ./client-round-robin
+docker build -t go-grpc-client-lookaside -f ./client-lookaside/Dockerfile ./client-lookaside
+```
+
+## Source
+
+- https://github.com/grpc/grpc/blob/master/doc/load-balancing.md
+- https://www.marwan.io/blog/grpc-dns-load-balancing
+- https://medium.com/engineering-at-palo-alto-networks/large-scale-data-ingestion-using-grpc-envoy-and-istio-in-cortex-data-lake-ec82ea87fa3b
+- https://github.com/grpc/grpc-go/issues/2854
+- https://www.docker.com/blog/docker-golang/
